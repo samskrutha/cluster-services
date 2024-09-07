@@ -26,6 +26,8 @@ spec:
       valuesObject:
         grafana:
           enabled: true
+          nodeExporter:
+            enabled: false
         alertmanager:
           alertmanagerSpec:
             replicas: 1
