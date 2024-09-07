@@ -8,4 +8,8 @@ kubePrometheusStack:
       enabled: false
     grafana:
       alerting:
-        enabled: true  
+        enabled: true
+      extraConfigmapMounts:
+        - name: grafana-alert-rules
+          mountPath: /etc/grafana/provisioning/alerting
+          configMap: grafana-alert-rules
