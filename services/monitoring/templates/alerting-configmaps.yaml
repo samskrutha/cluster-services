@@ -5,6 +5,7 @@ metadata:
   labels:
     app: grafana
     release: kube-prometheus-stack
+  namespace: monitoring
 data:
   Test-Alert.yaml: |-
     {{ .Files.Get "services/monitoring/alerting/test.yaml" | indent 4 }}
