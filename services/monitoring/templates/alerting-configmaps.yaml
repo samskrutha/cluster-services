@@ -1,12 +1,15 @@
+{{- $files := .Files.Glob "services/monitoring/alerting/*.yaml" -}}
+{{- range $path, $bytes := $files }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: grafana-alert-rules
+  name: {{ (printf "%s" $path | base | trimSuffix ".yaml") }}-alert-rules
+  namespace: monitoring
   labels:
     app: grafana
     release: kube-prometheus-stack
-  namespace: monitoring
 data:
-  test.yaml: |-
-    {{ .Files.Get "monitoring/alerting/test.yaml" | indent 4 }}
-    
+  {{ (printf "%s" $path | base) }}: |-
+    {{ $bytes | toString | nindent 4 }}
+---
+{{- end }}
