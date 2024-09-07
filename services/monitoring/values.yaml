@@ -8,5 +8,4 @@ kubePrometheusStack:
       enabled: false
     grafana:
       alerting:
-        enabled: true
-        label: grafana_alerts   
+        enabled: true  
