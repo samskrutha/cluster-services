@@ -1,0 +1,8 @@
+kubePrometheusStack:
+  enabled: true
+  version: 62.3.0
+  values:
+    grafana_enabled: true
+    thanosIngress_enabled: false
+    nodeExporter:
+      enabled: false   
