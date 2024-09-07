@@ -7,5 +7,6 @@ metadata:
     release: kube-prometheus-stack
   namespace: monitoring
 data:
-  Test-Alert.yaml: |-
+  test.yaml: |-
     {{ .Files.Get "services/monitoring/alerting/test.yaml" | indent 4 }}
+    
