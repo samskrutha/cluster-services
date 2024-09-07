@@ -8,5 +8,5 @@ metadata:
   namespace: monitoring
 data:
   test.yaml: |-
-    {{ .Files.Get "services/monitoring/alerting/test.yaml" | indent 4 }}
+    {{ .Files.Get "alerting/test.yaml" | indent 4 }}
     
