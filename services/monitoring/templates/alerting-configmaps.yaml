@@ -7,4 +7,4 @@ metadata:
     release: kube-prometheus-stack
 data:
   Test-Alert.yaml: |-
-    {{ .Files.Get "alerting/test.yaml" | indent 4 }}
+    {{ .Files.Get "services/monitoring/alerting/test.yaml" | indent 4 }}
