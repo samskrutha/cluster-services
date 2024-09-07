@@ -1,0 +1,14 @@
+{{- $files := .Files.Glob "alerting/*.yaml" -}}
+{{- range $path, $bytes := $files }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ (printf "%s" $path | base | trimSuffix ".yaml") }}-alerts
+  namespace: monitoring
+  labels: 
+    grafana_dashboard: "1"
+data:
+  {{ (printf "%s" $path | base) }}: |-
+    {{ $bytes | toString | nindent 4 }}
+---
+{{- end }}

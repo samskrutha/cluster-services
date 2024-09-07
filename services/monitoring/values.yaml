@@ -5,4 +5,8 @@ kubePrometheusStack:
     grafana_enabled: true
     thanosIngress_enabled: false
     nodeExporter:
-      enabled: false   
+      enabled: false
+    grafana:
+      alerting:
+        enabled: true
+        label: grafana_alerts   
