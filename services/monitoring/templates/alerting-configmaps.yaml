@@ -1,4 +1,4 @@
-{{- $files := .Files.Glob "services/monitoring/alerting/*.yaml" -}}
+{{- $files := .Files.Glob "alerting/*.yaml" -}}
 {{- range $path, $bytes := $files }}
 apiVersion: v1
 kind: ConfigMap
