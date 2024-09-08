@@ -13,7 +13,7 @@ spec:
       rules:
         {{- range $path, $bytes := $files }}
         - alert: {{ $path | base | trimSuffix ".yaml" }}
-          expr: {{ .Files.Get $path | toString | indent 4 }}
+          expr: {{ .Files.Get $path | toString | nindent 4 }}
           labels:
             severity: critical
           annotations:
