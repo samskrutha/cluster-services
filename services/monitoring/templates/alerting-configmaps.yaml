@@ -13,9 +13,10 @@ spec:
       rules:
         {{- range $path, $bytes := $files }}
         - alert: {{ $path | base | trimSuffix ".yaml" }}
-          expr: {{ .Files.Get $path | toString | nindent 4 }}
+          expr: |
+            {{ $bytes | toString | indent 4 }}
           labels:
             severity: critical
           annotations:
-            summary: "Dynamic rule from {{ $path }}"
+            summary: "Dynamic alert rule from {{ $path }}"
         {{- end }}
