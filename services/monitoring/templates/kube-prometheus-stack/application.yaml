@@ -17,10 +17,7 @@ spec:
             enabled: false
           grafana:
             alerting:
-              enabled: true  
-        alertmanager:
-          alertmanagerSpec:
-            replicas: 1 
+              enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
