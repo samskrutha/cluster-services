@@ -1,16 +1,44 @@
-apiVersion: monitoring.coreos.com/v1
-kind: PrometheusRule
-metadata:
-  name: test-alerts
-  namespace: monitoring
-spec:
-  groups:
-    - name: Test Alerts
-      rules:
-        - alert: TestAlert
-          expr: aggregator_discovery_aggregation_count_total{namespace="kube-system"}
-          for: 1m
-          labels:
-            severity: critical
-          annotations:
-            summary: "Test Alert Triggered"
+apiVersion: 1
+    groups:
+      - orgId: 1
+        name: my_rule_group
+        folder: my_first_folder
+        interval: 60s
+        rules:
+          - uid: my_id_1
+            title: my_first_rule
+            condition: A
+            data:
+              - refId: A
+                datasourceUid: '__expr__'
+                model:
+                  conditions:
+                    - evaluator:
+                        params:
+                          - 3
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                          - A
+                      reducer:
+                        type: last
+                      type: query
+                  datasource:
+                    type: __expr__
+                    uid: '__expr__'
+                  expression: 1==0
+                  intervalMs: 1000
+                  maxDataPoints: 43200
+                  refId: A
+                  type: math
+            dashboardUid: my_dashboard
+            panelId: 123
+            noDataState: Alerting
+            execErrState: Alerting
+            for: 60s
+            annotations:
+              some_key: some_value
+            labels:
+              team: sre_team_1
