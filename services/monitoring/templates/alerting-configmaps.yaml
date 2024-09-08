@@ -3,66 +3,48 @@ kind: ConfigMap
 metadata:
   name: grafana-notification-policies
 data:
-  notification-policies.yaml: |-
+  alert-rules.yaml: |-
     apiVersion: 1
-    contactPoints:
+    groups:
       - orgId: 1
-        # <string, required> name of the contact point
-        name: default
-        receivers:
-          - name: default
-            uid: abc123
-            type: email
-            disableResolveMessage: true
-            settings:
-              singleEmail: true
-              addresses: abc@default.com
-      # <int> organization ID, default = 1
-      - orgId: 1
-        # <string, required> name of the contact point
-        name: contact-point-sub1
-        receivers:
-          - name: contact-point-sub1
-            uid: twLu0PI4zz
-            type: email
-            disableResolveMessage: true
-            settings:
-              singleEmail: true
-              addresses: abc@sub1.com
-      - orgId: 1
-        # <string, required> name of the contact point
-        name: contact-point-sub2
-        receivers:
-          - name: contact-point-sub2
-            uid: pQLu0EI4zm
-            type: email
-            disableResolveMessage: true
-            settings:
-              singleEmail: true
-              addresses: abc@sub2.com
-
-    policies:
-      - orgId: 1
-        receiver: default
-        group_by: ['...']
-        # provenance: file
-        group_wait: 60s
-        group_interval: 5m
-        repeat_interval: 24h
-        matchers:
-          - domain =~ sub1|sub2
-        routes:
-          - receiver: contact-point-sub1
-            group_wait: 60s
-            group_interval: 5m
-            repeat_interval: 4h
-            matchers:
-              - domain = sub1
-            continue: false
-          - receiver: contact-point-sub2
-            group_wait: 60s
-            group_interval: 5m
-            repeat_interval: 4h
-            matchers:
-              - domain = sub2
-            continue: false
+        name: my_rule_group
+        folder: my_first_folder
+        interval: 60s
+        rules:
+          - uid: my_id_1
+            title: my_first_rule
+            condition: A
+            data:
+              - refId: A
+                datasourceUid: '__expr__'
+                model:
+                  conditions:
+                    - evaluator:
+                        params:
+                          - 3
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                          - A
+                      reducer:
+                        type: last
+                      type: query
+                  datasource:
+                    type: __expr__
+                    uid: '__expr__'
+                  expression: 1==0
+                  intervalMs: 1000
+                  maxDataPoints: 43200
+                  refId: A
+                  type: math
+            dashboardUid: my_dashboard
+            panelId: 123
+            noDataState: Alerting
+            execErrState: Alerting
+            for: 60s
+            annotations:
+              some_key: some_value
+            labels:
+              team: sre_team_1

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-notification-policies
+data:
+  contactpoints.yaml: |-
+    # config file version
+    apiVersion: 1
+
+    # List of contact points to import or update
+    contactPoints:
+      # <int> organization ID, default = 1
+      - orgId: 1
+        # <string, required> name of the contact point
+        name: cp_1
+        receivers:
+          # <string, required> unique identifier for the receiver. Should not exceed 40 symbols. Only letters, numbers, - (hyphen), and _ (underscore) allowed.
+          - uid: first_uid
+            # <string, required> type of the receiver
+            type: telegram
+            settings:
+              # <string, required>
+              bottoken: xxx
+              # <string, required>
+              chatid: some_chat_id
+              # <string>
+              message: |
+                {{ template "default.message" . }}
