@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-templates
+  namespace: monitoring
 data:
   templates.yaml: |-
     apiVersion: 1

@@ -2,17 +2,20 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-contact-points
+  namespace: monitoring  # Use the namespace where Grafana is deployed
 data:
-  contactpoints.yaml: |-
+  contact-points.yaml: |
     apiVersion: 1
     contactPoints:
       - orgId: 1
-        name: cp_1
+        name: Test
         receivers:
-          - uid: first_uid
+          - uid: adxbi44p10etdf
             type: telegram
             settings:
-              bottoken: xxx
-              chatid: some_chat_id
-              message: |
-                {{ template "default.message" . }}
+              bottoken: werwadafadadfdasf
+              chatid: "-453453453"
+              disable_notification: false
+              disable_web_page_preview: false
+              protect_content: false
+            disableResolveMessage: false
