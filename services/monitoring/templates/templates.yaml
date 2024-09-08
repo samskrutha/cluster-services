@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-templates
+data:
+  templates.yaml: |-
+    apiVersion: 1
+    templates:
+      - orgId: 1
+        name: my_first_template
+        template: |
+          {{- define "default.message" -}}
+          Default alert message
+          {{- end -}}
