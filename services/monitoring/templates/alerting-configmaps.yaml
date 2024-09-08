@@ -1,15 +1,21 @@
 {{- $files := .Files.Glob "alerting/*.yaml" -}}
-{{- range $path, $bytes := $files }}
-apiVersion: v1
-kind: ConfigMap
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
 metadata:
-  name: {{ (printf "%s" $path | base | trimSuffix ".yaml") }}-alert-rules
+  name: custom-alert-rules
   namespace: monitoring
   labels:
-    app: grafana
-    release: kube-prometheus-stack
-data:
-  {{ (printf "%s" $path | base) }}: |-
-    {{ $bytes | toString | nindent 4 }}
----
-{{- end }}
+    prometheus: kube-prometheus-stack-prometheus
+    role: alert-rules
+spec:
+  groups:
+    - name: custom.rules
+      rules:
+        {{- range $path, $bytes := $files }}
+        - alert: {{ $path | base | trimSuffix ".yaml" }}
+          expr: {{ .Files.Get $path | indent 4 }}
+          labels:
+            severity: critical
+          annotations:
+            summary: "Dynamic rule from {{ $path }}"
+        {{- end }}
