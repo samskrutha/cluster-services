@@ -5,39 +5,64 @@ metadata:
 data:
   notification-policies.yaml: |-
     apiVersion: 1
+    contactPoints:
+      - orgId: 1
+        # <string, required> name of the contact point
+        name: default
+        receivers:
+          - name: default
+            uid: abc123
+            type: email
+            disableResolveMessage: true
+            settings:
+              singleEmail: true
+              addresses: abc@default.com
+      # <int> organization ID, default = 1
+      - orgId: 1
+        # <string, required> name of the contact point
+        name: contact-point-sub1
+        receivers:
+          - name: contact-point-sub1
+            uid: twLu0PI4zz
+            type: email
+            disableResolveMessage: true
+            settings:
+              singleEmail: true
+              addresses: abc@sub1.com
+      - orgId: 1
+        # <string, required> name of the contact point
+        name: contact-point-sub2
+        receivers:
+          - name: contact-point-sub2
+            uid: pQLu0EI4zm
+            type: email
+            disableResolveMessage: true
+            settings:
+              singleEmail: true
+              addresses: abc@sub2.com
+
     policies:
       - orgId: 1
-        receiver: email
-        provenance: kubernetes-configmap
+        receiver: default
+        group_by: ['...']
+        # provenance: file
         group_wait: 60s
         group_interval: 5m
         repeat_interval: 24h
+        matchers:
+          - domain =~ sub1|sub2
         routes:
-          - receiver: slack-channel-1
+          - receiver: contact-point-sub1
             group_wait: 60s
             group_interval: 5m
-            group_by:
-              - namespace
+            repeat_interval: 4h
             matchers:
-              - namespace =~ a|b|c|d
-            repeat_interval: 5m
+              - domain = sub1
             continue: false
-          - receiver: slack-channel-2
+          - receiver: contact-point-sub2
             group_wait: 60s
             group_interval: 5m
-            group_by:
-              - app
+            repeat_interval: 4h
             matchers:
-              - app =~ grafana|prometheus|loki
-            repeat_interval: 3h
-            continue: false
-          - receiver: slack-channel-3
-            group_wait: 60s
-            group_interval: 5m
-            group_by:
-              - kafka-topic
-            matchers:
-              - namespace = kafka
-              - kafka-topic =~ ^my-topic
-            repeat_interval: 6h
+              - domain = sub2
             continue: false
