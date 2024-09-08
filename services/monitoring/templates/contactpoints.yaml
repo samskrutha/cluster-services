@@ -7,15 +7,24 @@ data:
   contact-points.yaml: |
     apiVersion: 1
     contactPoints:
-      - orgId: 1
-        name: Test
-        receivers:
-          - uid: adxbi44p10etdf
-            type: telegram
-            settings:
-              bottoken: werwadafadadfdasf
-              chatid: "-453453453"
-              disable_notification: false
-              disable_web_page_preview: false
-              protect_content: false
-            disableResolveMessage: false
+        - orgId: 1
+          name: Telegram
+          receivers:
+            - uid: adxbqlo0ku39db
+              type: telegram
+              settings:
+                bottoken: adfasdfasdfasdf
+                chatid: "-23423424"
+                disable_notification: false
+                disable_web_page_preview: false
+                protect_content: false
+              disableResolveMessage: false
+        - orgId: 1
+          name: email receiver
+          receivers:
+            - uid: bdxbqlo0ku39cc
+              type: email
+              settings:
+                addresses: <example@email.com>
+              disableResolveMessage: false
+
