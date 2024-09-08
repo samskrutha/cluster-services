@@ -12,4 +12,4 @@ kubePrometheusStack:
       extraConfigmapMounts:
         - name: grafana-alert-rules
           mountPath: /etc/grafana/provisioning/alerting
-          configMap: grafana-alert-rules
+          configMap: test-alert-rules
