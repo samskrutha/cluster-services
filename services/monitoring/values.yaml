@@ -4,12 +4,12 @@ kubePrometheusStack:
   values:
     grafana_enabled: true
     thanosIngress_enabled: false
-    nodeExporter:
-      enabled: false
-    grafana:
-      alerting:
-        enabled: true
-      extraConfigmapMounts:
-        - name: grafana-alert-rules
-          mountPath: /etc/grafana/provisioning/alerting
-          configMap: test-alert-rules
+#    nodeExporter:
+#      enabled: false
+#    grafana:
+#      alerting:
+#        enabled: true
+#      extraConfigmapMounts:
+#       - name: grafana-alert-rules
+#          mountPath: /etc/grafana/provisioning/alerting
+#          configMap: test-alert-rules

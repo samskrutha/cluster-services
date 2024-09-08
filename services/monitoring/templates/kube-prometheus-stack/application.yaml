@@ -8,7 +8,33 @@ spec:
   source:
     repoURL: 'https://github.com/samskrutha/cluster-services'  
     targetRevision: HEAD
-    path: services/monitoring  
+    path: services/monitoring
+    helm:
+      valuesObject:
+        grafana:
+          enabled: true
+          nodeExporter:
+            enabled: false
+          grafana:
+            alerting:
+              enabled: true  
+        alertmanager:
+          alertmanagerSpec:
+            replicas: 1  
+        prometheusOperator:
+          admissionWebhooks:
+            deployment:
+              replicas: 1  
+        prometheus:
+          prometheusSpec:
+            replicas: 1  
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  accessModes: ["ReadWriteOnce"]
+                  resources:
+                    requests:
+                      storage: 10Gi  
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
