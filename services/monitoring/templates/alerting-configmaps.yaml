@@ -12,7 +12,7 @@ spec:
     rules:
     - alert: PrometheusBadConfig
       annotations:
-        description: Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration.
+        description: Prometheus has failed to reload its configuration.
         runbook_url: https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusbadconfig
         summary: Failed Prometheus configuration reload.
       expr: |
