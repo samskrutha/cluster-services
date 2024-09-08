@@ -1,25 +1,43 @@
-apiVersion: monitoring.coreos.com/v1
-kind: PrometheusRule
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: custom-alert-rules
-  namespace: monitoring
-  labels:
-    prometheus: kube-prometheus-stack-prometheus
-    role: alert-rules
-spec:
-  groups:
-  - name: prometheus
-    rules:
-    - alert: PrometheusBadConfig
-      annotations:
-        description: Prometheus has failed to reload its configuration.
-        runbook_url: https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheusbadconfig
-        summary: Failed Prometheus configuration reload.
-      expr: |
-        # Without max_over_time, failed scrapes could create false negatives, see
-        # https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-        max_over_time(prometheus_config_last_reload_successful{job="prometheus-k8s",namespace="monitoring"}[5m]) == 0
-      for: 10m
-      labels:
-        severity: critical
-
+  name: grafana-notification-policies
+data:
+  notification-policies.yaml: |-
+    apiVersion: 1
+    policies:
+      - orgId: 1
+        receiver: email
+        provenance: kubernetes-configmap
+        group_wait: 60s
+        group_interval: 5m
+        repeat_interval: 24h
+        routes:
+          - receiver: slack-channel-1
+            group_wait: 60s
+            group_interval: 5m
+            group_by:
+              - namespace
+            matchers:
+              - namespace =~ a|b|c|d
+            repeat_interval: 5m
+            continue: false
+          - receiver: slack-channel-2
+            group_wait: 60s
+            group_interval: 5m
+            group_by:
+              - app
+            matchers:
+              - app =~ grafana|prometheus|loki
+            repeat_interval: 3h
+            continue: false
+          - receiver: slack-channel-3
+            group_wait: 60s
+            group_interval: 5m
+            group_by:
+              - kafka-topic
+            matchers:
+              - namespace = kafka
+              - kafka-topic =~ ^my-topic
+            repeat_interval: 6h
+            continue: false
