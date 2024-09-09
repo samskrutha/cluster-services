@@ -15,9 +15,8 @@ spec:
           enabled: true
           nodeExporter:
             enabled: false
-          grafana:
-            alerting:
-              enabled: true
+          alerting:
+            enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
