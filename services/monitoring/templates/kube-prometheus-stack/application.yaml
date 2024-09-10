@@ -1,3 +1,4 @@
+{{if .Values.kubePrometheusStack.enabled}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,19 +9,7 @@ spec:
   source:
     repoURL: 'https://github.com/samskrutha/cluster-services'  
     targetRevision: HEAD
-    path: services/monitoring
-    helm:
-      valuesObject:
-        grafana:
-          enabled: true
-          nodeExporter:
-            enabled: false
-          sidecar:
-            alerts:
-              enabled: true
-              label: grafana_alert  
-            datasources:
-              enabled: false  
+    path: services/monitoring  
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -31,3 +20,15 @@ spec:
     syncOptions:
     - CreateNamespace=true
     - ServerSideApply=true
+  sources:
+      helm:
+        valuesObject:
+          grafana:
+            enabled: true
+            nodeExporter:
+              enabled: false
+            sidecar:
+              alerts:
+                enabled: true
+                label: grafana_alert
+

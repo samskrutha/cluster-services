@@ -4,12 +4,6 @@ kubePrometheusStack:
   values:
     grafana_enabled: true
     thanosIngress_enabled: false
-    grafana:
-      enabled: true
-      sidecar:
-        alerts:
-          enabled: true
-          label: grafana_alert
 #    nodeExporter:
 #      enabled: false
 #    grafana:
