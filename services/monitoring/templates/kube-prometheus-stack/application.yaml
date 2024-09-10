@@ -9,16 +9,16 @@ spec:
     - repoURL: 'https://github.com/samskrutha/cluster-services'  
       targetRevision: HEAD
       path: services/monitoring
-      helm:
-        valuesObject:
-          grafana:
-            enabled: true
-            nodeExporter:
-              enabled: false
-            sidecar:
-              alerts:
-                enabled: true
-                label: grafana_alert
+#      helm:
+#       valuesObject:
+#         grafana:
+#            enabled: true
+#            nodeExporter:
+#              enabled: false
+#            sidecar:
+#              alerts:
+#                enabled: true
+#                label: grafana_alert
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
