@@ -5,21 +5,10 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: 'https://github.com/samskrutha/cluster-services'  
-    targetRevision: HEAD
-    path: services/monitoring  
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: monitoring
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-    - ServerSideApply=true
   sources:
+    - repoURL: 'https://github.com/samskrutha/cluster-services'  
+      targetRevision: HEAD
+      path: services/monitoring
       helm:
         valuesObject:
           grafana:
@@ -30,4 +19,13 @@ spec:
               alerts:
                 enabled: true
                 label: grafana_alert
-
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
