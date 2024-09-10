@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-contact-points
+  namespace: monitoring
+data:
+  contact-points.yaml: |-
+    {{ (.Files.Get "provisioning/alerting/contact-points.yaml") | nindent 4 }}

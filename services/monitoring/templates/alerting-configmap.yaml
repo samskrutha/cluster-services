@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-alert
+  namespace: monitoring
+  labels: 
+    grafana_alert: "1"
+data:
+  alerts.yaml: |-
+    {{ (.Files.Get "provisioning/alerting/alerts.yaml") | nindent 4 }}

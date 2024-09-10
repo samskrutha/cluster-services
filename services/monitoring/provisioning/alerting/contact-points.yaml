@@ -1,0 +1,19 @@
+apiVersion: 1
+contactPoints:
+    - orgId: 1
+      name: prod-cluster-alerts
+      receivers:
+        - uid: bdxawo1oyeww2a
+          type: teams
+          settings:
+            url: https://perfoodgmbh.webhook.office.com/webhookb2/0fa7af8c-4b1d-48cf-98da-d9eb587e1506@d2b0e1d6-5d39-40d5-88d3-ac9d80b2cf15/IncomingWebhook/6e7a85a43da54933831391e8d9323c7a/76787320-9613-4ff6-9e6e-c653849bd62e
+          disableResolveMessage: false
+        - uid: edxawo1oyeww1e
+          type: telegram
+          settings:
+            bottoken: test
+            chatid: "-657259922"
+            disable_notification: false
+            disable_web_page_preview: false
+            protect_content: false
+          disableResolveMessage: false

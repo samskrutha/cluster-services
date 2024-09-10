@@ -15,8 +15,11 @@ spec:
           enabled: true
           nodeExporter:
             enabled: false
-          alerting:
-            enabled: true
+          sidecar:
+            alerts:
+              enabled: true
+              label: grafana_alert
+              
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
