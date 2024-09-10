@@ -18,7 +18,9 @@ spec:
           sidecar:
             alerts:
               enabled: true
-              label: grafana_alert    
+              label: grafana_alert  
+            datasources:
+              enabled: false  
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
